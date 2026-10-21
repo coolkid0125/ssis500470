@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SSIS-PORTAL</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1ynTrF7FAY17SLIc-M6CRP2w35oShpg_g">
+  <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1ynTrF7FAY17SLIc-M6CRP2w35oShpg_g">
+
+  <!-- Open Graph & SEO Meta Tags -->
+  <meta name="description" content="San Simon Integrated School Portal - Directory, Enrollment, Calendar & Announcements">
+  <meta property="og:title" content="SSIS-PORTAL">
+  <meta property="og:description" content="San Simon Integrated School Portal">
+  <meta property="og:image" content="https://lh3.googleusercontent.com/d/1ynTrF7FAY17SLIc-M6CRP2w35oShpg_g">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: #0f172a;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Seamless Full-Bleed Portal Frame */
+    #portalFrame {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      border: none;
+      display: block;
+      background-color: #f8fafc;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #portalFrame.loaded {
+      opacity: 1;
+    }
+
+    /* Elegant Loading Screen */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      z-index: 9999;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .spinner-wrap {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .spinner {
+      width: 80px;
+      height: 80px;
+      border: 4px solid rgba(59, 130, 246, 0.2);
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      position: absolute;
+    }
+
+    .logo-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .portal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .portal-subtitle {
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+      <img class="logo-img" src="https://lh3.googleusercontent.com/d/1ynTrF7FAY17SLIc-M6CRP2w35oShpg_g" alt="Logo" onerror="this.style.display='none'">
+    </div>
+    <div class="portal-title">SSIS-PORTAL</div>
+    <div class="portal-subtitle">Connecting to school portal...</div>
+  </div>
+
+  <!-- Full-Screen Portal iFrame -->
+  <iframe 
+    id="portalFrame"
+    src="https://script.google.com/macros/s/AKfycbyyGPNqynUvu7gPKQHG7C1gajbTDFVGbog4ToE2vesnJKaeWPdKiwrAY1Bh6WbMOXVqyA/exec" 
+    allow="clipboard-read; clipboard-write; geolocation"
+    title="SSIS Portal">
+  </iframe>
+
+  <script>
+    const iframe = document.getElementById('portalFrame');
+    const loader = document.getElementById('loader');
+
+    // Hide loader once the portal loads
+    iframe.addEventListener('load', function() {
+      iframe.classList.add('loaded');
+      setTimeout(function() {
+        loader.classList.add('hidden');
+      }, 200);
+    });
+
+    // Failsafe timeout in case iframe onload event is delayed
+    setTimeout(function() {
+      loader.classList.add('hidden');
+      iframe.classList.add('loaded');
+    }, 3500);
+  </script>
+</body>
+</html>
